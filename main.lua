@@ -5,6 +5,11 @@ function love.load ()
 end
 
 function love.draw ()
+
+  local major, minor, revision, codename = love.getVersion()
+  local str = string.format("Version %d.%d.%d - %s", major, minor, revision, codename)
+  love.graphics.print(str, 20, 20)
+
 	--love.graphics.draw(player.img, player.x, player.y)
 	love.graphics.setColor(255, 255, 255, 5)
 	--love.graphics.print(GameTimer.getSeconds())
@@ -15,7 +20,7 @@ function love.draw ()
 	
 	killObjects ()
 	drawObjects()
-
+  
 	love.graphics.setColor(mainColor)
 	love.graphics.rectangle("fill", 0,0,10,10)
 	love.graphics.setFont(smallFont)
@@ -77,7 +82,7 @@ function love.update( dt )
 	movePlayer()
 	restorePlayerColor ()
 
-	if love.keyboard.isDown(" ") then 
+	if love.keyboard.isDown("space") then 
 		vacuum = true
 		if player.vacuumSize < player.vacuumStrength then player.vacuumSize = player.vacuumSize + 2 end
 	else 
@@ -169,19 +174,19 @@ function setup ()
 
 	c = { }
 
-	c[0] = {43,53,56,255} -- grey
-	c[1] = {255,59,119,255} -- pink
-	c[2] = {205,255,0,255} -- lime
-	c[3] = {0,170,255,255} -- blue
-	c[4] = {255, 155, 35, 255} -- orange
-	c[5] = {255, 255, 255, 255} -- white
+	c[0] = {43/255,53/255,56/255,255/255} -- grey
+	c[1] = {255/255,59/255,119/255,255/255} -- pink
+	c[2] = {205/255,255/255,0,255} -- lime
+	c[3] = {0,170/255,255/255,255/255} -- blue
+	c[4] = {255/255, 155/255, 35/255, 255/255} -- orange
+	c[5] = {255/255, 255/255, 255/255, 255/255} -- white
 
 	mainColor = c[love.math.random(1,4)]
 
 	love.graphics.setBackgroundColor(c[0])
 
-	width = love.window.getWidth()
-	height = love.window.getHeight()
+	width = love.graphics.getWidth()
+	height = love.graphics.getHeight()
 
 	createObjects()
 
